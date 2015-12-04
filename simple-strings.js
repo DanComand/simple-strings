@@ -1,11 +1,11 @@
+Strings = new Mongo.Collection("strings");
+
 if (Meteor.isClient) {
   // counter starts at 0
   Template.body.helpers({
-    strings: [
-      { text: "this is string 1" },
-      { text: "this is string 2" },
-      { text: "this is string 3 "}
-    ]
+    strings: function () {
+      return Strings.find({});
+    }
   });
 }
 
