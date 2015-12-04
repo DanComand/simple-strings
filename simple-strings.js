@@ -26,12 +26,7 @@ if (Meteor.isClient) {
       var text = event.target.text.value;
 
       // insert new string into the collection
-      Strings.insert({
-        text: text,
-        createdAt: new Date(),
-        owner: Meteor.userId(),
-        username: Meteor.user().username
-      });
+     Meteor.call("addString", text);
 
       //clear form
       event.target.text.value = "";
@@ -44,12 +39,10 @@ if (Meteor.isClient) {
   Template.string.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
-      Strings.update(this._id, {
-        $set: {checked: ! this.checked}
-      });
+      Meteor.call("setChecked", this._id, ! this.checked);
     },
     "click .delete": function () {
-      Strings.remove(this._id);
+      Meteor.call("deleteString", this._id);
     }
   });
 
@@ -57,6 +50,49 @@ if (Meteor.isClient) {
     passwordSignupFields: "USERNAME_ONLY"
   });
 }
+
+Meteor.methods({
+  addString: function (text) {
+    //make sure user if logged in before adding new string
+    if (! Meteor.userId()) {
+      throw new Meteor.Error("not-authorized");
+    }
+
+    Strings.insert({
+      text: text,
+      createdAt: new Date(),
+      owner: Meteor.userId(),
+      username: Meteor.user().username
+    });
+  },
+
+  deleteString: function (stringId) {
+    Strings.remove(stringId);
+  },
+  setChecked: function (stringId, setChecked) {
+    Strings.update(StringId, { $set: { checked: setChecked} });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
