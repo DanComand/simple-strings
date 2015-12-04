@@ -1,0 +1,21 @@
+<head>
+  <title>Simple Strings</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Simple Strings</h1>
+    </header>
+    
+    <ul>
+      {{#each strings}}
+        {{> string}}
+      {{/each}}
+    </ul>
+  </div>      
+</body>
+
+<template name="string">
+  <li>{{text}}</li>
+</template>
