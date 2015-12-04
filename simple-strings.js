@@ -28,7 +28,9 @@ if (Meteor.isClient) {
       // insert new string into the collection
       Strings.insert({
         text: text,
-        createdAt: new Date()
+        createdAt: new Date(),
+        owner: Meteor.userId(),
+        username: Meteor.user().username
       });
 
       //clear form
@@ -49,6 +51,10 @@ if (Meteor.isClient) {
     "click .delete": function () {
       Strings.remove(this._id);
     }
+  });
+
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
   });
 }
 

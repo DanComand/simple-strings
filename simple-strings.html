@@ -8,14 +8,18 @@
       <h1>Simple Strings</h1>
       <div>{{incompleteCount}} Items Outstanding</div>
 
+      <div>Logged in as: {{> loginButtons}}</div>
+
       <label class="hide-completed">
         <input type="checkbox" checked="{{hideCompleted}}" />
         Hide Returned Strings
       </label>
 
+      {{#if currentUser}}
       <form class="new-string">
         <input type="text" name="text" placeholder="Add A String" />
       </form>
+      {{/if}}
     </header>
     
     <ul>
