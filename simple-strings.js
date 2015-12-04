@@ -36,6 +36,12 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.string.helpers({
+    isOwner: function () {
+      return this.owner === Meteor.userId();
+    }
+  });
+
   Template.string.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
@@ -73,25 +79,6 @@ Meteor.methods({
     Strings.update(StringId, { $set: { checked: setChecked} });
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if (Meteor.isServer) {
