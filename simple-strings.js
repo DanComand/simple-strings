@@ -7,6 +7,25 @@ if (Meteor.isClient) {
       return Strings.find({});
     }
   });
+
+  Template.body.events({
+    "submit .new-string": function(event) {
+      event.preventDefault();
+
+      //get text from form  
+      var text = event.target.text.value;
+
+      // insert new string into the collection
+      Strings.insert({
+        text: text,
+        createdAt: new Date()
+      });
+
+      //clear form
+      event.target.text.value = "";
+
+    }
+  })
 }
 
 if (Meteor.isServer) {
