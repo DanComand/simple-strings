@@ -4,7 +4,7 @@ if (Meteor.isClient) {
   // counter starts at 0
   Template.body.helpers({
     strings: function () {
-      return Strings.find({});
+      return Strings.find({}, {sort: {createdAt: -1}});
     }
   });
 
@@ -25,7 +25,7 @@ if (Meteor.isClient) {
       event.target.text.value = "";
 
     }
-  })
+  });
 }
 
 if (Meteor.isServer) {
